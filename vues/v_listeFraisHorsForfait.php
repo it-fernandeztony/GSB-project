@@ -71,8 +71,21 @@
                            class="form-control" value="">
                 </div>
             </div>
-            <button class="btn btn-success" type="submit">Ajouter</button>
-            <button class="btn btn-danger" type="reset">Effacer</button>
+            <button class="btn btn-success" type="submit">
+                <?php if ($_SESSION['utilisateur'] == 'visiteur') { ?>
+                    Ajouter
+                <?php } else if ($_SESSION['utilisateur'] == 'comptable') { ?>
+                    Corriger
+                <?php } ?>
+            </button>
+                <?php if ($_SESSION['utilisateur'] == 'visiteur') { ?>
+                    <button class="btn btn-danger" type="reset">
+                    Effacer
+                <?php } else if ($_SESSION['utilisateur'] == 'comptable') { ?>
+                    <button class="btn btn-danger" onclick='envoi()' type="button">
+                    Réinitialiser
+                <?php } ?> 
+            </button>
         </form>
     </div>
 </div>

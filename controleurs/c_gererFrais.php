@@ -14,10 +14,18 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
-$idVisiteur = $_SESSION['idVisiteur'];
-$mois = getMois(date('d/m/Y'));
-$numAnnee = substr($mois, 0, 4);
-$numMois = substr($mois, 4, 2);
+if ($_SESSION['utilisateur'] == 'visiteur') {
+    $idVisiteur = $_SESSION['idVisiteur'];
+    $mois = getMois(date('d/m/Y'));
+    $numAnnee = substr($mois, 0, 4);
+    $numMois = substr($mois, 4, 2);
+}else{
+    $idVisiteur = $listeNomPrenomVisiteur['idVisiteur'][$indexListeNom];
+    $moisOrdonne = $listeNomPrenomVisiteur['mois'][$indexListeNom][$indexListeMois];
+    $numAnnee = substr($moisOrdonne, 5);
+    $numMois = substr($moisOrdonne, 0, 2);
+    $mois = $numAnnee . $numMois;
+}
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'saisirFrais':
@@ -58,5 +66,7 @@ case 'supprimerFrais':
 }
 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
 $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
+
+
 require 'vues/v_listeFraisForfait.php';
 require 'vues/v_listeFraisHorsForfait.php';

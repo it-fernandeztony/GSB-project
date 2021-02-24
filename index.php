@@ -34,6 +34,9 @@ case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
 case 'gererFrais':
+    if ($_SESSION['utilisateur'] == 'comptable') {
+        include 'controleurs/c_comptable.php';
+    }
     include 'controleurs/c_gererFrais.php';
     break;
 case 'etatFrais':

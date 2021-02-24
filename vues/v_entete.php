@@ -25,6 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+        <script src="./Javascript/fonctionsDynamique.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="container">
@@ -44,26 +45,38 @@
                     <div class="col-md-8">
                         <ul class="nav nav-pills pull-right" role="tablist">
                             <li <?php if (!$uc || $uc == 'accueil') { ?>class="active" <?php } ?>>
-                                <a href="index.php">
+                                <a <?php echo "class=",$_SESSION['utilisateur'] , "couleur "; ?>
+                                    href="index.php">
                                     <span class="glyphicon glyphicon-home"></span>
                                     Accueil
                                 </a>
                             </li>
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=gererFrais&action=saisirFrais">
+                                <a <?php echo "class=",$_SESSION['utilisateur'] , "couleur "; ?>
+                                    href="index.php?uc=gererFrais&action=saisirFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
-                                    Renseigner la fiche de frais
+                                    <?php if ($_SESSION['utilisateur'] == 'visiteur'){?>
+                                        Renseigner la fiche de frais
+                                    <?php } else {?>
+                                        Valider les fiches de frais 
+                                    <?php }?>
                                 </a>
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=etatFrais&action=selectionnerMois">
+                                <a <?php echo "class=",$_SESSION['utilisateur'] , "couleur "; ?>
+                                    href="index.php?uc=etatFrais&action=selectionnerMois">
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Afficher mes fiches de frais
+                                    <?php if ($_SESSION['utilisateur'] == 'visiteur'){?>
+                                        Afficher mes fiches de frais
+                                    <?php } else {?>
+                                        Suivre le paiement des fiches de frais 
+                                    <?php }?>
                                 </a>
                             </li>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
+                                <a <?php echo "class=",$_SESSION['utilisateur'] , "couleur "; ?>
+                                    href="index.php?uc=deconnexion&action=demandeDeconnexion">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     Déconnexion
                                 </a>

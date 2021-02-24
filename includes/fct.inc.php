@@ -15,7 +15,7 @@
  */
 
 /**
- * Teste si un quelconque visiteur est connecté
+ * Teste si un quelconque utilisateur est connecté
  *
  * @return vrai ou faux
  */
@@ -27,17 +27,19 @@ function estConnecte()
 /**
  * Enregistre dans une variable session les infos d'un visiteur
  *
- * @param String $idVisiteur ID du visiteur
- * @param String $nom        Nom du visiteur
- * @param String $prenom     Prénom du visiteur
+ * @param String $idVisiteur        ID de l'utilisateur
+ * @param String $nom               Nom de l'utilisateur
+ * @param String $prenom            Prénom de l'utilisateur
+ * @param String $typeUtilisateur   Type de l'utilisateur
  *
  * @return null
  */
-function connecter($idVisiteur, $nom, $prenom)
+function connecter($idVisiteur, $nom, $prenom, $typeUtilisateur)
 {
     $_SESSION['idVisiteur'] = $idVisiteur;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['utilisateur'] = $typeUtilisateur;
 }
 
 /**
@@ -246,4 +248,45 @@ function nbErreurs()
     } else {
         return count($_REQUEST['erreurs']);
     }
+}
+
+/**
+ * Retourne un tableau associatif contenant nom et prénom de visiteur.
+ * 
+ * @param array $liste tableau associatif contenant id, nom et prénom 
+ * de visiteur.
+ * @return array liste de nom et prénom sour la forme Nom Prénom
+ */
+function creerListeNomPrenom($liste) 
+{
+    for ($i=0;$i<count($liste);$i++) { 
+    $array = $liste[$i];
+    $listeNomPrenom[] = $array['nom'] . ' ' . $array['prenom'];
+    }
+    return $listeNomPrenom;
+}
+
+function extraireListe($array, $cle) 
+{
+    $listeFinale = null;
+    foreach($array as $element) {
+        $liste = null;
+        if (is_array($element[$cle])) {
+            $fin = count($element[$cle]);
+            for($i=0;$i<$fin;$i++) {
+               $liste[] = $element[$cle][$i];
+            }
+            $listeFinale[] = $liste;
+        } else {
+            $listeFinale[] = $element[$cle];
+        }
+    }
+    return $listeFinale;
+}
+
+function formatMois($liste) {
+    foreach ($liste as $value) {
+        $listeFormate[] = $value['numMois'] . ' / ' . $value['numAnnee'];
+    }
+    return $listeFormate;
 }

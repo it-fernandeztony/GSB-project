@@ -88,7 +88,7 @@ class PdoGsb
      * @param String $login Login du visiteur
      * @param String $mdp   Mot de passe du visiteur
      *
-     * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
+     * @return l'id, le nom et le prénom du visiteur sous la forme d'un tableau associatif
      */
     public function getInfosVisiteur($login, $mdp)
     {
@@ -103,7 +103,29 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
-
+    
+    /**
+     * Retourne les informations d'un comptable
+     * 
+     * @param String $login Login du comptable
+     * @param String $mdp Mot de passe du comptable
+     * 
+     * @return l'id, le nom et le prénom du comptable sous la forme d'un tableau associatif
+     */
+    public function getInfosComptable($login, $mdp)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT comptable.id AS id, comptable.nom AS nom, '
+            . 'comptable.prenom AS prenom '
+            . 'FROM comptable '
+            . 'WHERE comptable.login = :unLogin AND comptable.mdp = :unMdp'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
      * hors forfait concernées par les deux arguments.
@@ -407,7 +429,7 @@ class PdoGsb
      *
      * @param String $idVisiteur ID du visiteur
      *
-     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs
+     * @return array un tableau associatif de clé un mois -aaaamm- et de valeurs
      *         l'année et le mois correspondant
      */
     public function getLesMoisDisponibles($idVisiteur)
@@ -440,7 +462,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return un tableau avec des champs de jointure entre une fiche de frais
+     * @return array un tableau avec des champs de jointure entre une fiche de frais
      *         et la ligne d'état
      */
     public function getLesInfosFicheFrais($idVisiteur, $mois)
@@ -485,5 +507,60 @@ class PdoGsb
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
+    }
+    
+    /**
+     * Retourne les noms et prénom dans l'ordre alphabétique des visiteurs pour 
+     * lequelles il éxiste une fiche de frais clôturé.
+     * 
+     * @return array les noms et prénoms des visiteurs pour lequel il éxiste 
+     * une fiche de frais à l'état CL sous la forme d'un tableau associatif.
+     */
+    public function getNomPrenomVisiteurs()
+    {
+         $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT DISTINCT visiteur.nom as nom, '
+            . 'visiteur.prenom as prenom, visiteur.id '
+            . 'as idVisiteur FROM visiteur INNER JOIN '
+            . 'fichefrais ON visiteur.id = '
+            . 'fichefrais.idvisiteur WHERE '
+            . 'fichefrais.idetat = "CL" ORDER BY '
+            . 'visiteur.nom'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    
+    /**
+     * Retourne les mois pour lesquel un visiteur a une fiche de frais à l'état
+     * clôturé.
+     *
+     * @param String $idVisiteur ID du visiteur
+     *
+     * @return array un tableau associatif de clé un mois -aaaamm- et de valeurs
+     *         l'année et le mois correspondant
+     */
+    public function getLesMoisCloture($idVisiteur)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT fichefrais.mois AS mois FROM fichefrais '
+            . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+            . 'AND fichefrais.idetat = "CL" ORDER BY '
+            . 'fichefrais.mois desc'
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $lesMois = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $lesMois[] = array(
+                'mois' => $mois,
+                'numAnnee' => $numAnnee,
+                'numMois' => $numMois
+            );
+        }
+        return $lesMois;
     }
 }
