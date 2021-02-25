@@ -1,10 +1,15 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Fonction dynamique de l'application.
+ * 
+ * @category  PPE
+ * @package   GSB
+ * @author    Tony FERNANDEZ <it-fernandeztony@gmail.com>
+ * @version   GIT: <0>
  */
 
-
+/**
+ * Procédure qui permet d'envoyer un formulaire.
+ */
 function envoi() {
     var formulaire = document.getElementById('form');
     formulaire.submit();

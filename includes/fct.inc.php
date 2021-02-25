@@ -8,6 +8,7 @@
  * @package   GSB
  * @author    Cheri Bibi - Réseau CERTA <contact@reseaucerta.org>
  * @author    José GIL <jgil@ac-nice.fr>
+ * @author    Tony FERNANDEZ <it-fernandeztony@gmail.com>
  * @copyright 2017 Réseau CERTA
  * @license   Réseau CERTA
  * @version   GIT: <0>
@@ -253,9 +254,9 @@ function nbErreurs()
 /**
  * Retourne un tableau associatif contenant nom et prénom de visiteur.
  * 
- * @param array $liste tableau associatif contenant id, nom et prénom 
+ * @param Array $liste tableau associatif contenant id, nom et prénom 
  * de visiteur.
- * @return array liste de nom et prénom sour la forme Nom Prénom
+ * @return Array liste de nom et prénom sour la forme Nom Prénom
  */
 function creerListeNomPrenom($liste) 
 {
@@ -266,6 +267,13 @@ function creerListeNomPrenom($liste)
     return $listeNomPrenom;
 }
 
+/**
+ * Extrait une liste d'un tableau associatif.
+ * 
+ * @param Array $array tableau associatif.
+ * @param String $cle clé du tableau associatif.
+ * @return Array retourne une liste.
+ */
 function extraireListe($array, $cle) 
 {
     $listeFinale = null;
@@ -284,6 +292,12 @@ function extraireListe($array, $cle)
     return $listeFinale;
 }
 
+/**
+ * Réorganise dans une liste les dates de type -aaaamm- en type -mm / aaaa-.
+ * 
+ * @param Array $liste liste de date à formater.
+ * @return Array liste date formatées.
+ */
 function formatMois($liste) {
     foreach ($liste as $value) {
         $listeFormate[] = $value['numMois'] . ' / ' . $value['numAnnee'];

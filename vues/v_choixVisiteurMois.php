@@ -6,7 +6,7 @@
  *
  * @category  PPE
  * @package   GSB
- * @author    Tony Fernandez <it.fernandeztony@gmail.com>
+ * @author    Tony FERNANDEZ <it-fernandeztony@gmail.com>
  */
 ?>
 <div class="row">

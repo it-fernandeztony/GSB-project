@@ -7,7 +7,7 @@
  *
  * @category  PPE
  * @package   GSB
- * @author    Tony Fernandez <it.fernandeztony@gmail.com>
+ * @author    Tony FERNANDEZ <it-fernandeztony@gmail.com>
  * @version   GIT: <0>
  */
 
@@ -31,4 +31,5 @@ if ($listeDeVisiteur != null) {
     require 'vues/v_choixVisiteurMois.php';
 } else {
     ajouterErreur('Il n\'éxiste aucune fiche à valider');
+    include 'vues/v_erreurs.php';
 }
