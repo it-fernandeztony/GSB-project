@@ -5833,13 +5833,21 @@ button.list-group-item-danger.active:focus {
 .panel-success > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #d6e9c6;
 }
-.panel-info {
+.panel-info.tableau-visiteur  {
   border-color: #bce8f1;
 }
-.panel-info > .panel-heading {
+.panel-info.tableau-comptable  {
+  border-color: #ff8719;
+}
+.panel-info.tableau-visiteur > .panel-heading {
   color: #31708f;
   background-color: #d9edf7;
   border-color: #bce8f1;
+}
+.panel-info.tableau-comptable > .panel-heading {
+  color: #7d3c01;
+  background-color: #ffa24d;
+  border-color: #ff8719;
 }
 .panel-info > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #bce8f1;

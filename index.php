@@ -45,6 +45,9 @@ case 'gererFrais':
     }
     break;
 case 'etatFrais':
+    if ($_SESSION['utilisateur'] == 'comptable') {
+        include 'controleurs/c_comptable.php';
+    }
     include 'controleurs/c_etatFrais.php';
     break;
 case 'deconnexion':

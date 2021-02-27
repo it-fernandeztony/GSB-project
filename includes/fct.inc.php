@@ -304,3 +304,79 @@ function formatMois($liste) {
     }
     return $listeFormate;
 }
+
+/**
+ * Ajoute le libellé d'une réussite au tableau des réussites
+ *
+ * @param String $msg Libellé de la réussite
+ *
+ * @return null
+ */
+function ajouterReussite($msg)
+{
+    if (!isset($_REQUEST['reussites'])) {
+        $_REQUEST['reussites'] = array();
+    }
+    $_REQUEST['reussites'][] = $msg;
+}
+
+/**
+ * Vérifie la longueur d'une chaine et tronque si celle-ci dépasse la longueur
+ * voulu.
+ * 
+ * @param String $chaine chaine à contrôler.
+ * @param Integer $longueur longueur de la chaine souhaité.
+ * @return String retourne la chaine.
+ */
+function verificationLongueurChaine($chaine, $longueur) {
+    if (strlen($chaine) > $longueur) {
+        $chaine = substr($chaine, 0, $longueur);
+    }
+    return $chaine;
+}
+
+/**
+ * Recherche le mois suivant.
+ * 
+ * @param String $mois le mois précédent.
+ * @return string le mois suivant.
+ */
+function moisSuivant($mois) {
+    $numAnnee = intval(substr($mois,0,4));
+    $numMois = intval(substr($mois, 5));
+    if ($numMois + 1 > 12) {
+        $moisSuivant = strval($numAnnee + 1) . '01';
+    } else if (strlen($numMois + 1) < 2) {
+        $moisSuivant = strval($numAnnee) . '0' . strval($numMois + 1);
+    } else {
+        $moisSuivant = strval($numAnnee) . strval($numMois + 1);
+    }
+    return $moisSuivant;
+}
+
+/**
+ * Valide que le nombre de justificatifs n'est pas nul et bien numérique.
+ * 
+ * @param Integer $justificatif
+ */
+function valideJustificatifs($justificatif) {
+    if (!is_numeric($justificatif)) {
+        ajouterErreur('Le champ nombre de justificatif doit être numérique.');
+    } else if ($justificatif == null) {
+        ajouterErreur('Le champ nombre de justificatif ne peut pas être nul.');
+    }
+}
+
+/**
+ * Recherche le bouton sur lequel l'utilisateur a appuyé.
+ * 
+ * @param Array $listeId liste d'id des frais hors forfait.
+ * @return Integer index de la liste correspondant au bouton appuyé.
+ */
+function rechercheBoutonUtilise($listeId) {
+    $i = 0;
+    while (!isset($_POST[$listeId[$i]])) {
+        $i++;
+    }
+    return $i;
+}

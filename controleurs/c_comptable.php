@@ -11,25 +11,36 @@
  * @version   GIT: <0>
  */
 
-$listeDeVisiteur = $pdo->getNomPrenomVisiteurs();
-if ($listeDeVisiteur != null) {
+switch ($uc) {
+    case 'gererFrais':
+        $listeDeVisiteur = $pdo->getListeVisiteurFicheEtat('CL');
+        break;
+    case 'etatFrais':
+        $listeDeVisiteur = $pdo->getListeVisiteurFicheEtat('VA');
+        break;
+    default:
+        $uc = 'Erreur';
+        break;
+}
+ if (($listeDeVisiteur != null) && ($uc != 'Erreur')) {
     $listeNomPrenomVisiteur['nomPrenom'] = creerListeNomPrenom($listeDeVisiteur);
     $listeNomPrenomVisiteur['idVisiteur'] = extraireListe($listeDeVisiteur,'idVisiteur');
-    $indexListeNom = intval(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING));
+    $indexListeNom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_NUMBER_INT);
     if ($indexListeNom == null) {
         $indexListeMois = 0;
         $indexListeNom = 0;
     } else {
-        $indexListeNom = intval(filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING));
-        $indexListeMois = intval(filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_STRING));
+        $indexListeMois = filter_input(INPUT_POST, 'mois', FILTER_SANITIZE_NUMBER_INT);
     }
     $listeMois = null;
     foreach ($listeNomPrenomVisiteur['idVisiteur'] as $valeur) {
-        $listeMois[] = formatMois($pdo->getLesMoisCloture($valeur));
+        if ($uc == 'gererFrais') {
+            $listeMois[] = formatMois($pdo->getLesMoisEtat($valeur,'CL'));
+        } else if ($uc == 'etatFrais') {
+            $listeMois[] = formatMois($pdo->getLesMoisEtat($valeur,'VA'));
+        }
     }
     $listeNomPrenomVisiteur['mois'] = $listeMois;
-    require 'vues/v_choixVisiteurMois.php';
-} else {
+} else if (($listeDeVisiteur == null) && ($uc != 'Erreur')){
     ajouterErreur('Il n\'éxiste aucune fiche à valider');
-    include 'vues/v_erreurs.php';
 }

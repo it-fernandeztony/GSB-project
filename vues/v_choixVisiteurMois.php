@@ -49,3 +49,8 @@
         </select>
     </form>
 </div>
+<?php if ($action == 'validerFicheDeFrais') {
+?><script> envoi(); </script>
+<?php
+}
+?>

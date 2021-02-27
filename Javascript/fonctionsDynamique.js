@@ -9,6 +9,8 @@
 
 /**
  * Procédure qui permet d'envoyer un formulaire.
+ * 
+ * @return null
  */
 function envoi() {
     var formulaire = document.getElementById('form');

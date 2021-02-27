@@ -10,6 +10,10 @@
  * @version   GIT: <0>
  */
 ?>
-<div class="success bg-success" role="success">
-    
+<div class="alert alert-success" role="success">
+    <?php
+    foreach ($_REQUEST['reussites'] as $reussite) {
+        echo '<p>' . htmlspecialchars($reussite) . '</p>';
+    }
+    ?>
 </div>
