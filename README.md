@@ -1,4 +1,4 @@
 # GSB-project
 
-LOGIN comptable : 'fball'.
-Mot de passe comptable : 'x9d5s'.
+<p>LOGIN comptable : 'fball'.</p>
+<p>Mot de passe comptable : 'x9d5s'.</p>
