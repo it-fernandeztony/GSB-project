@@ -16,16 +16,17 @@
 ?>
 <hr>
 <div class="row">
-    <div class="panel panel-info <?php 
-    if ($_SESSION['utilisateur'] == 'visiteur') {?>
-    tableau-visiteur <?php } else { ?>
-    tableau-comptable <?php } ?>">
+    <div class="panel panel-info tableau-<?php 
+    echo $_SESSION['utilisateur']?>">
         <div class="panel-heading">Descriptif des éléments hors forfait</div>
-        <form action="index.php?uc=gererFrais&action=majFraisHorsForfait&indexListeNom=
-              <?php echo $indexListeNom; 
-              ?>&indexListeMois=<?php echo $indexListeMois;
-              ?>" 
+        <form action="index.php?uc=gererFrais&action=majFraisHorsForfait" 
                 method="post" role="form">
+            <?php if ($_SESSION['utilisateur'] == 'comptable') { ?>
+                <input type="hidden" name="indexListeNom" value="<?php echo $indexListeNom ?>">
+                <input type="hidden" name="indexListeMois" value="<?php echo $indexListeMois ?>">
+            <?php
+            }
+            ?>
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr>
@@ -125,10 +126,10 @@ if ($_SESSION['utilisateur'] == 'visiteur') { ?>
 ?>
     <div class="row">
         <form method="post" 
-             action="index.php?uc=gererFrais&action=validerFicheDeFrais&indexListeNom=<?php echo $indexListeNom; 
-                            ?>&indexListeMois=<?php echo $indexListeMois;
-                            ?>" 
+             action="index.php?uc=gererFrais&action=validerFicheDeFrais" 
              role="form">
+            <input type="hidden" name="indexListeNom" value="<?php echo $indexListeNom ?>">
+            <input type="hidden" name="indexListeMois" value="<?php echo $indexListeMois ?>">
             <label for="nbJustificatif">Nombre de justificatifs :</label>
             <input type="text" id="nbJustificatifs" 
                                name="nbJustificatifs"

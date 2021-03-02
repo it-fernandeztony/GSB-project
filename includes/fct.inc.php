@@ -256,7 +256,7 @@ function nbErreurs()
  * 
  * @param Array $liste tableau associatif contenant id, nom et prénom 
  * de visiteur.
- * @return Array liste de nom et prénom sour la forme Nom Prénom
+ * @return Array liste de nom et prénom sous la forme Nom Prénom
  */
 function creerListeNomPrenom($liste) 
 {
@@ -276,7 +276,6 @@ function creerListeNomPrenom($liste)
  */
 function extraireListe($array, $cle) 
 {
-    $listeFinale = null;
     foreach($array as $element) {
         $liste = null;
         if (is_array($element[$cle])) {
@@ -298,7 +297,8 @@ function extraireListe($array, $cle)
  * @param Array $liste liste de date à formater.
  * @return Array liste date formatées.
  */
-function formatMois($liste) {
+function formatMois($liste) 
+{
     foreach ($liste as $value) {
         $listeFormate[] = $value['numMois'] . ' / ' . $value['numAnnee'];
     }
@@ -328,7 +328,8 @@ function ajouterReussite($msg)
  * @param Integer $longueur longueur de la chaine souhaité.
  * @return String retourne la chaine.
  */
-function verificationLongueurChaine($chaine, $longueur) {
+function verificationLongueurChaine($chaine, $longueur) 
+{
     if (strlen($chaine) > $longueur) {
         $chaine = substr($chaine, 0, $longueur);
     }
@@ -341,7 +342,8 @@ function verificationLongueurChaine($chaine, $longueur) {
  * @param String $mois le mois précédent.
  * @return string le mois suivant.
  */
-function moisSuivant($mois) {
+function moisSuivant($mois) 
+{
     $numAnnee = intval(substr($mois,0,4));
     $numMois = intval(substr($mois, 5));
     if ($numMois + 1 > 12) {
@@ -358,8 +360,11 @@ function moisSuivant($mois) {
  * Valide que le nombre de justificatifs n'est pas nul et bien numérique.
  * 
  * @param Integer $justificatif
+ * 
+ * @return null
  */
-function valideJustificatifs($justificatif) {
+function valideJustificatifs($justificatif) 
+{
     if (!is_numeric($justificatif)) {
         ajouterErreur('Le champ nombre de justificatif doit être numérique.');
     } else if ($justificatif == null) {
@@ -371,12 +376,31 @@ function valideJustificatifs($justificatif) {
  * Recherche le bouton sur lequel l'utilisateur a appuyé.
  * 
  * @param Array $listeId liste d'id des frais hors forfait.
+ * 
  * @return Integer index de la liste correspondant au bouton appuyé.
  */
-function rechercheBoutonUtilise($listeId) {
+function rechercheBoutonUtilise($listeId) 
+{
     $i = 0;
     while (!isset($_POST[$listeId[$i]])) {
         $i++;
     }
     return $i;
+}
+
+/**
+ * Vérifie si l'index ne dépasse pas le nombre d'élement d'une liste.
+ * 
+ * @param array $liste liste dont on doit vérifier le nombre d'élément
+ * @param int $index index à vérifier
+ * 
+ * @return int l'index si sa valeur ne dépasse pas le nombre d'élément 
+ * de la liste sinon retourne 0.
+ */
+function verificationIndex($liste, $index) 
+{
+     if ($index >= count($liste)) {
+        $index = 0;
+    }
+    return $index;
 }

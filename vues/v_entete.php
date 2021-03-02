@@ -65,7 +65,9 @@
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
                                 <a <?php echo "class=",$_SESSION['utilisateur'] , "couleur "; ?>
-                                    href="index.php?uc=etatFrais&action=selectionnerMois">
+                                    href="index.php?uc=etatFrais&
+                                        <?php if ($_SESSION['utilisateur'] == 'comptable') {
+                                        ?>action=voirEtatFrais<?php } else { ?>action=selectionnerMois<?php }?>">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                     <?php if ($_SESSION['utilisateur'] == 'visiteur'){?>
                                         Afficher mes fiches de frais

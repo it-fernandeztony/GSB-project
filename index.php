@@ -47,8 +47,12 @@ case 'gererFrais':
 case 'etatFrais':
     if ($_SESSION['utilisateur'] == 'comptable') {
         include 'controleurs/c_comptable.php';
+        if ($listeDeVisiteur != null) {
+            include 'controleurs/c_etatFrais.php';
+        }
+    } else {
+        include 'controleurs/c_etatFrais.php';
     }
-    include 'controleurs/c_etatFrais.php';
     break;
 case 'deconnexion':
     include 'controleurs/c_deconnexion.php';

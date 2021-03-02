@@ -21,18 +21,6 @@ if ($_SESSION['utilisateur'] == 'visiteur') {
     $numAnnee = substr($mois, 0, 4);
     $numMois = substr($mois, 4, 2);
 }else{
-    if (isset($_GET['indexListeNom'])) {
-    $indexListeNom = filter_input(INPUT_GET, 'indexListeNom', FILTER_SANITIZE_NUMBER_INT);
-    $indexListeMois = filter_input(INPUT_GET, 'indexListeMois', FILTER_SANITIZE_NUMBER_INT);
-    }
-    $idVisiteur = $listeNomPrenomVisiteur['idVisiteur'][$indexListeNom];
-    if ($indexListeMois >= count($listeNomPrenomVisiteur['mois'][$indexListeNom])) {
-        $indexListeMois = 0;
-    }
-    $moisOrdonne = $listeNomPrenomVisiteur['mois'][$indexListeNom][$indexListeMois];
-    $numAnnee = substr($moisOrdonne, 5);
-    $numMois = substr($moisOrdonne, 0, 2);
-    $mois = $numAnnee . $numMois;
     $nbJustificatifs = $pdo->getNbJustificatifs($idVisiteur,$mois);
 }
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
@@ -101,7 +89,6 @@ case 'majFraisHorsForfait':
     }
     break;
 case 'reporterFrais':
-    $idVisiteur = $listeNomPrenomVisiteur['idVisiteur'][$indexListeNom];
     $idFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_STRING);
     $libelleAModifie = filter_input(INPUT_GET, 'libelle', FILTER_SANITIZE_STRING);
     $libelleChange = verificationLongueurChaine($libelleAModifie, 30);
@@ -122,7 +109,6 @@ case 'validerFicheDeFrais':
         $indexListeNom = 0;
         $indexListeMois = 0;
     }
-    
     break;
 case 'supprimerFrais':
     $idFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_STRING);
@@ -136,10 +122,6 @@ default:
 if ($uc != 'Erreur') {
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
-    if (($_SESSION['utilisateur'] == 'comptable') 
-        && $listeDeVisiteur != null ) {
-        require 'vues/v_choixVisiteurMois.php';
-    }
     require 'vues/v_listeFraisForfait.php';
     require 'vues/v_listeFraisHorsForfait.php';
 }

@@ -14,8 +14,14 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$idVisiteur = $_SESSION['idVisiteur'];
+if ($_SESSION['utilisateur'] == 'visiteur') {
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+    $idVisiteur = $_SESSION['idVisiteur'];
+} else {
+    if ($action == 'selectionnerMois') {
+        $action = 'voirEtatFrais'; 
+    }
+}
 switch ($action) {
 case 'selectionnerMois':
     $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
@@ -27,18 +33,35 @@ case 'selectionnerMois':
     include 'vues/v_listeMois.php';
     break;
 case 'voirEtatFrais':
-    $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
-    $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-    $moisASelectionner = $leMois;
-    include 'vues/v_listeMois.php';
+    if ($_SESSION['utilisateur'] == 'visiteur') {
+        $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        $moisASelectionner = $leMois;
+        include 'vues/v_listeMois.php';
+    } else if ($_SESSION['utilisateur'] == 'comptable') {
+        $leMois = $mois;
+    }
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
+    $idEtat = $lesInfosFicheFrais['idEtat'];
     $libEtat = $lesInfosFicheFrais['libEtat'];
     $montantValide = $lesInfosFicheFrais['montantValide'];
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     include 'vues/v_etatFrais.php';
+    break;
+case 'majEtatMisePaiement':
+    $pdo->majEtatFicheFrais($idVisiteur, $mois, 'PM');
+    $indexListeNom = 0;
+    $indexListeMois = 0;
+    break;
+case 'majEtatRembourse':
+    $pdo->majEtatFicheFrais($idVisiteur, $mois, 'RB');
+    $indexListeNom = 0;
+    $indexListeMois = 0;
+    break;
 }
+

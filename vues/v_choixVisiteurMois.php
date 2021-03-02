@@ -11,10 +11,11 @@
 ?>
 <div class="row">
     <form method="post" id='form'
-          action="index.php?uc=gererFrais&action=saisirFrais" 
+          action="index.php?uc=<?php if ($uc == 'gererFrais') { ?>gererFrais&action=saisirFrais<?php 
+          } else if ($uc == 'etatFrais') { ?>etatFrais&action=voirEtatFrais<?php } ?>"
           role="form">
         <label for='choixUtilisateur'>Choisir le visiteur: </label>
-        <select name='nom' id='choixUtilisateur' onChange='envoi()'>
+        <select name='indexListeNom' id='choixUtilisateur' onChange='envoi()'>
             <?php 
                 $i = 0;
                 foreach($listeNomPrenomVisiteur['nomPrenom'] as 
@@ -31,7 +32,7 @@
             ?>
         </select>
         <label for='choixMois'>Mois: </label>
-        <select name='mois' id='choixMois' onChange='envoi()'>
+        <select name='indexListeMois' id='choixMois' onChange='envoi()'>
             <?php
             $j = 0;
             foreach($listeNomPrenomVisiteur['mois'][$indexListeNom] as 
@@ -49,7 +50,7 @@
         </select>
     </form>
 </div>
-<?php if ($action == 'validerFicheDeFrais') {
+<?php if ($action == 'validerFicheDeFrais' || $action == 'majEtatRembourse' || $action == 'majEtatMisePaiement') {
 ?><script> envoi(); </script>
 <?php
 }

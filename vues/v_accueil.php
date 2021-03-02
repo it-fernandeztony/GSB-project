@@ -51,7 +51,9 @@
                                 Valider les fiches de frais 
                             <?php } ?>
                         </a>
-                        <a href="index.php?uc=etatFrais&action=selectionnerMois"
+                        <a href="index.php?uc=etatFrais&
+                                <?php if ($_SESSION['utilisateur'] == 'comptable') { 
+                                ?>action=voirEtatFrais<?php } else { ?>action=selectionnerMois<?php }?>"
                            class="btn btn-primary btn-lg 
                            <?php echo $_SESSION['utilisateur'] ?>" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
