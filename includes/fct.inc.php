@@ -367,8 +367,6 @@ function valideJustificatifs($justificatif)
 {
     if (!is_numeric($justificatif)) {
         ajouterErreur('Le champ nombre de justificatif doit être numérique.');
-    } else if ($justificatif == null) {
-        ajouterErreur('Le champ nombre de justificatif ne peut pas être nul.');
     }
 }
 

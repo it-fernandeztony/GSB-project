@@ -42,6 +42,10 @@ switch ($uc) {
     $numAnnee = substr($moisOrdonne, 5);
     $numMois = substr($moisOrdonne, 0, 2);
     $mois = $numAnnee . $numMois;
+    if ($action == 'validerFicheDeFrais') {
+        $nbJustificatifs = filter_input(INPUT_POST, 'nbJustificatifs', FILTER_SANITIZE_NUMBER_INT);
+        valideJustificatifs($nbJustificatifs);
+    }
     if (($_SESSION['utilisateur'] == 'comptable') 
         && $listeDeVisiteur != null ) {
         require 'vues/v_choixVisiteurMois.php';

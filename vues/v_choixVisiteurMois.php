@@ -50,7 +50,10 @@
         </select>
     </form>
 </div>
-<?php if ($action == 'validerFicheDeFrais' || $action == 'majEtatRembourse' || $action == 'majEtatMisePaiement') {
+<?php 
+
+if (($action == 'validerFicheDeFrais' && nbErreurs()== 0) ||
+        $action == 'majEtatRembourse' || $action == 'majEtatMisePaiement') {
 ?><script> envoi(); </script>
 <?php
 }

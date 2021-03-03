@@ -99,8 +99,6 @@ case 'reporterFrais':
     $pdo->reporterFraisHorsForfait($idFrais, $libelleChange, $moisSuivant);
     break;
 case 'validerFicheDeFrais':
-    $nbJustificatifs = filter_input(INPUT_POST, 'nbJustificatifs', FILTER_SANITIZE_NUMBER_INT);
-    valideJustificatifs($nbJustificatifs);
     if (nbErreurs() != 0) {
         include 'vues/v_erreurs.php';
     } else {

@@ -89,7 +89,7 @@ class PdoGsb
      * @param String $login Login du visiteur
      * @param String $mdp   Mot de passe du visiteur
      *
-     * @return l'id, le nom et le prénom du visiteur sous la forme d'un tableau associatif
+     * @return Array l'id, le nom et le prénom du visiteur sous la forme d'un tableau associatif
      */
     public function getInfosVisiteur($login, $mdp)
     {
@@ -111,7 +111,7 @@ class PdoGsb
      * @param String $login Login du comptable
      * @param String $mdp Mot de passe du comptable
      * 
-     * @return l'id, le nom et le prénom du comptable sous la forme d'un tableau associatif
+     * @return Array l'id, le nom et le prénom du comptable sous la forme d'un tableau associatif
      */
     public function getInfosComptable($login, $mdp)
     {
@@ -137,7 +137,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return tous les champs des lignes de frais hors forfait sous la forme
+     * @return Array tous les champs des lignes de frais hors forfait sous la forme
      * d'un tableau associatif
      */
     public function getLesFraisHorsForfait($idVisiteur, $mois)
@@ -164,7 +164,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return le nombre entier de justificatifs
+     * @return Integer le nombre entier de justificatifs
      */
     public function getNbjustificatifs($idVisiteur, $mois)
     {
@@ -187,7 +187,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return l'id, le libelle et la quantité sous la forme d'un tableau
+     * @return Array l'id, le libelle et la quantité sous la forme d'un tableau
      * associatif
      */
     public function getLesFraisForfait($idVisiteur, $mois)
@@ -212,7 +212,7 @@ class PdoGsb
     /**
      * Retourne tous les id de la table FraisForfait
      *
-     * @return un tableau associatif
+     * @return Array un tableau associatif
      */
     public function getLesIdFrais()
     {
@@ -290,7 +290,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return vrai ou faux
+     * @return Boolean vrai ou faux
      */
     public function estPremierFraisMois($idVisiteur, $mois)
     {
@@ -314,7 +314,7 @@ class PdoGsb
      *
      * @param String $idVisiteur ID du visiteur
      *
-     * @return le mois sous la forme aaaamm
+     * @return String le mois sous la forme aaaamm
      */
     public function dernierMoisSaisi($idVisiteur)
     {
@@ -431,7 +431,7 @@ class PdoGsb
      *
      * @param String $idVisiteur ID du visiteur
      *
-     * @return array un tableau associatif de clé un mois -aaaamm- et de valeurs
+     * @return Array un tableau associatif de clé un mois -aaaamm- et de valeurs
      *         l'année et le mois correspondant
      */
     public function getLesMoisDisponibles($idVisiteur)
@@ -464,7 +464,7 @@ class PdoGsb
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return array un tableau avec des champs de jointure entre une fiche de frais
+     * @return Array un tableau avec des champs de jointure entre une fiche de frais
      *         et la ligne d'état
      */
     public function getLesInfosFicheFrais($idVisiteur, $mois)
@@ -521,7 +521,7 @@ class PdoGsb
      * @param String $etatA premier etat voulu.
      * @param String $etatB second etat voulu.
      * 
-     * @return array les noms et prénoms des visiteurs pour lequel il éxiste 
+     * @return Array les noms et prénoms des visiteurs pour lequel il éxiste 
      * une fiche de frais aux états souhaité sous la forme d'un tableau associatif.
      */
     public function getListeVisiteurFicheEtat($etatA, $etatB)
@@ -563,7 +563,7 @@ class PdoGsb
      * @param String $etatA premier état souhaité.
      * @param String $etatB second état souhaité.
      * 
-     * @return array un tableau associatif de clé un mois -aaaamm- et de valeurs
+     * @return Array un tableau associatif de clé un mois -aaaamm- et de valeurs
      *         l'année et le mois correspondant.
      */
     public function getLesMoisEtat($idVisiteur, $etatA, $etatB)
