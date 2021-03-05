@@ -8,7 +8,7 @@
  * @category  PPE
  * @package   GSB
  * @author    Réseau CERTA <contact@reseaucerta.org>
- * @author    Tony FERNANDEZ <it-fernandeztony.gmail>
+ * @author    Tony FERNANDEZ <it.fernandeztony.gmail>
  * @version   GIT: <0>
  */
 
