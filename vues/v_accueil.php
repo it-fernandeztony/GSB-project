@@ -21,7 +21,7 @@
         <?php if ($_SESSION['utilisateur'] == 'visiteur'){ ?> 
             Visiteur :
         <?php } else { ?>
-            Comptable
+            Comptable :
             <?php
             }
             echo $_SESSION['prenom'] . ' ' . $_SESSION['nom']

@@ -314,7 +314,7 @@ class PdoGsb
      *
      * @param String $idVisiteur ID du visiteur
      *
-     * @return String le mois sous la forme aaaamm
+     * @return String            le mois sous la forme aaaamm
      */
     public function dernierMoisSaisi($idVisiteur)
     {
@@ -518,8 +518,8 @@ class PdoGsb
      * Retourne les noms et prénom dans l'ordre alphabétique des visiteurs pour 
      * lequelles il éxiste une fiche de frais dans un ou deux états souhaité.
      * 
-     * @param String $etatA premier etat voulu.
-     * @param String $etatB second etat voulu.
+     * @param String $etatA premier état voulu.
+     * @param String $etatB second état voulu.
      * 
      * @return Array les noms et prénoms des visiteurs pour lequel il éxiste 
      * une fiche de frais aux états souhaité sous la forme d'un tableau associatif.
@@ -560,8 +560,8 @@ class PdoGsb
      * souhaité.
      *
      * @param String $idVisiteur ID du visiteur.
-     * @param String $etatA premier état souhaité.
-     * @param String $etatB second état souhaité.
+     * @param String $etatA      premier état souhaité.
+     * @param String $etatB      second état souhaité.
      * 
      * @return Array un tableau associatif de clé un mois -aaaamm- et de valeurs
      *         l'année et le mois correspondant.
@@ -608,7 +608,7 @@ class PdoGsb
      * 
      * @param String $idFrais id du frais.
      * @param String $libelle libellé du frais
-     * @param String $mois le nouveau mois du frais.
+     * @param String $mois    le nouveau mois du frais.
      * 
      * @return null
      */
@@ -628,10 +628,10 @@ class PdoGsb
     /**
      * Modifie les frais hors forfait.
      * 
-     * @param type $idFrais id du frais à modifier.
-     * @param type $dateFrais date du frais à modifier sous la forme -aaaamm-.
-     * @param type $libelle libelle du frais à modifier.
-     * @param type $montant montant du frais à modifier.
+     * @param type $idFrais     id du frais à modifier.
+     * @param type $dateFrais   date du frais à modifier sous la forme -aaaamm-.
+     * @param type $libelle     libelle du frais à modifier.
+     * @param type $montant     montant du frais à modifier.
      * 
      * @return null
      */
@@ -655,7 +655,7 @@ class PdoGsb
      * Met à jour le montant validé dans la base de données.
      * 
      * @param type $idVisiteur id du visiteur.
-     * @param type $mois date de la fiche du visiteur sous la forme -aaaamm-.
+     * @param type $mois       date de la fiche du visiteur sous la forme -aaaamm-.
      * 
      * @return null
      */
@@ -703,7 +703,7 @@ class PdoGsb
      * Recherche les mois correspondants au visiteur présent dans la liste de visiteur.
      * 
      * @param Array $listeVisiteur liste de visiteurs.
-     * @param String $uc sélection de l'utilisateur.
+     * @param String $uc           sélection de l'utilisateur.
      * 
      * @return Array un tableau de mois.
      */
